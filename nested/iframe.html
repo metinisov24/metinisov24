@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <center>
+      Content of the IFrame<br />
+      (Buble IO Popup)<br />
+      <br />
+    </center>
+    <button onclick="myFunction('l.html')">L Beds</button>
+    <button onclick="myFunction('xl.html')">XL Beds</button>
+    <button onclick="myFunction('xxl.html')">XXL Beds</button>
+
+    <script>
+      function myFunction(properBedPage) {
+        console.log("IFrame button clicked with: ", properBedPage);
+
+        if (window.parent !== undefined && properBedPage !== null) {
+          window.parent.postMessage(properBedPage, event.origin);
+        }
+      }
+    </script>
+  </body>
+</html>

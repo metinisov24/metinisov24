@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nested Iframe</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+  <body>
+    <iframe src="nested/iframe.html" width="100%" height="300px"></iframe>
+
+    <h1>Shopify Page</h1>
+
+    <h3>This is the parent page</h3>
+
+    <a href="./l.html">L Beds</a> |
+
+    <a href="./xl.html">XL Beds</a> |
+
+    <a href="./xxl.html">XXL Beds</a>
+
+    <script>
+      window.addEventListener("message", function (event) {
+        bubleIOOrigin = "http://localhost:4000";
+        urlToForwardTo = event.data;
+
+        console.log("Received message from: ", urlToForwardTo);
+
+        if (
+          event.origin !== bubleIOOrigin ||
+          typeof urlToForwardTo === "object"
+        ) {
+          console.log("Received message from unknown origin: ", event.origin);
+          return;
+        }
+
+        if (
+          urlToForwardTo !== undefined &&
+          urlToForwardTo !== null &&
+          urlToForwardTo !== ""
+        ) {
+          console.log("Received data from child page: ", event);
+          // append to current url and redirect
+          currentURL = window.location.href;
+          // remove the last part of the url
+          currentURL = currentURL.substring(0, currentURL.lastIndexOf("/"));
+          currentURL = currentURL + "/" + urlToForwardTo;
+
+          console.log("Redirecting to: ", currentURL);
+          window.location.href = currentURL;
+        }
+      });
+    </script>
+  </body>
+</html>
